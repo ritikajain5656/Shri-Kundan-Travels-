@@ -1,0 +1,27 @@
+name: HTML/CSS CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Validate HTML
+        run: |
+          sudo apt-get install tidy
+          tidy -e index.html
+      
+      - name: Validate CSS
+        run: |
+          sudo apt-get install csslint
+          csslint style.css
